@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CartRescue - Don't Just Recover Carts. Recover Connections.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #5D4E75;
+            color: #F8F8F8;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .waveform-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: 0;
+            pointer-events: none;
+            background-image: 
+                repeating-linear-gradient(90deg, transparent 0px, transparent 8px, #F8F8F8 8px, #F8F8F8 10px),
+                repeating-linear-gradient(0deg, transparent 0px, transparent 20px, #F8F8F8 20px, #F8F8F8 21px);
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        header {
+            position: relative;
+            margin-bottom: 80px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+            padding-top: 60px;
+        }
+        
+        .hero-text {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #F8F8F8;
+            text-align: left;
+            letter-spacing: -0.02em;
+        }
+        
+        .sub-headline {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            line-height: 1.6;
+            color: #E8C8C8;
+            margin-bottom: 35px;
+            max-width: 600px;
+            font-weight: 300;
+        }
+        
+        .face-illustration {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            margin-left: -40px;
+        }
+        
+        .face-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .data-side {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50%;
+            height: 80%;
+            opacity: 0.6;
+        }
+        
+        .data-line {
+            position: absolute;
+            background: #E8C8C8;
+            height: 1px;
+        }
+        
+        .data-line:nth-child(1) { width: 80%; top: 20%; left: 0; }
+        .data-line:nth-child(2) { width: 60%; top: 35%; left: 10%; }
+        .data-line:nth-child(3) { width: 70%; top: 50%; left: 0; }
+        .data-line:nth-child(4) { width: 70%; top: 65%; left: 5%; }
+        .data-line:nth-child(5) { width: 85%; top: 80%; left: 0; }
+        
+        .data-point {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #E8C8C8;
+            border-radius: 50%;
+        }
+        
+        .human-side {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60%;
+            height: 85%;
+            border: 3px dashed #E8C8C8;
+            border-radius: 42% 58% 45% 55% / 62% 62% 50% 50%;
+            background: transparent;
+            overflow: hidden;
+        }
+        
+        .smile {
+            position: absolute;
+            bottom: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 40px;
+            border: 3px solid #FF4D4D;
+            border-top: none;
+            border-radius: 0 0 80px 80px;
+        }
+        
+        .eye {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #E8C8C8;
+            border-radius: 50%;
+            top: 30%;
+        }
+        
+        .eye.left { left: 30%; }
+        .eye.right { right: 30%; }
+        
+        .form-section {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 35px 40px;
+            position: relative;
+            border-left: 5px solid #FF4D4D;
+            max-width: 650px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-section::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 80px;
+            height: 80px;
+            background: #FF4D4D;
+            opacity: 0.15;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.15; }
+            50% { transform: scale(1.1); opacity: 0.25; }
+        }
+        
+        .success-metric {
+            font-size: 0.85rem;
+            color: #E8C8C8;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        
+        form {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+        
+        .email-input {
+            flex: 1;
+            padding: 18px 22px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(232, 200, 200, 0.3);
+            color: #F8F8F8;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        
+        .email-input::placeholder {
+            color: rgba(232, 200, 200, 0.5);
+            font-style: italic;
+        }
+        
+        .email-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #E8C8C8;
+        }
+        
+        .submit-btn {
+            padding: 18px 35px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #F8F8F8;
+            background: #FF4D4D;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            letter-spacing: 0.3px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .submit-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 77, 77, 0.4);
+        }
+        
+        .submit-btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .comparisons {
+            margin: 100px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .comparison-card {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 40px 30px;
+            position: relative;
+            border-top: 3px solid #E8C8C8;
+            transform: rotate(-1deg);
+            transition: transform 0.3s;
+        }
+        
+        .comparison-card:nth-child(2) {
+            transform: rotate(1deg);
+            margin-top: 40px;
+        }
+        
+        .comparison-card:nth-child(3) {
+            transform: rotate(-0.5deg);
+            margin-top: 20px;
+        }
+        
+        .comparison-card:hover {
+            transform: rotate(0deg) translateY(-5px);
+        }
+        
+        .comparison-before {
+            font-size: 0.9rem;
+            color: rgba(232, 200, 200, 0.6);
+            margin-bottom: 10px;
+            text-decoration: line-through;
+        }
+        
+        .comparison-arrow {
+            color: #FF4D4D;
+            font-size: 1.5rem;
+            margin: 10px 0;
+        }
+        
+        .comparison-after {
+            font-size: 1.2rem;
+            color: #E8C8C8;
+            font-weight: 600;
+        }
+        
+        .ticker-container {
+            overflow: hidden;
+            padding: 30px 0;
+            background: rgba(0, 0, 0, 0.15);
+            margin-top: 80px;
+        }
+        
+        .ticker {
+            display: flex;
+            animation: scroll 30s linear infinite;
+            gap: 60px;
+        }
+        
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .ticker-item {
+            color: rgba(232, 200, 200, 0.5);
+            font-size: 0.9rem;
+            white-space: nowrap;
+            font-style: italic;
+        }
+        
+        .errorlist {
+            list-style: none;
+            color: #FF4D4D;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            background: rgba(255, 77, 77, 0.1);
+            padding: 10px 15px;
+        }
+        
+        @media (max-width: 968px) {
+            header {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .face-illustration {
+                height: 350px;
+                margin-left: 0;
+            }
+            
+            .form-section {
+                padding: 30px 25px;
+            }
+            
+            form {
+                flex-direction: column;
+            }
+            
+            .submit-btn {
+                padding: 18px 25px;
+            }
+            
+            .comparisons {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-card {
+                transform: rotate(0deg) !important;
+                margin-top: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="waveform-bg"></div>
+    
+    <div class="container">
+        <header>
+            <div class="hero-text">
+                <h1>Don't Just Recover Carts. Recover Connections.</h1>
+                <p class="sub-headline">
+                    Your store has data. But it's missing a face. Transform anonymous abandonments 
+                    into loyal customers with the power of personalized video.
+                </p>
+                
+                <section class="form-section">
+                    <p class="success-metric">Be the first to turn cart abandonment into your most powerful marketing channel.</p>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        {{ form.email.errors }}
+                        <input type="email" 
+                               name="email" 
+                               class="email-input" 
+                               placeholder="Your shop's name... your future customer's smile."
+                               required>
+                        <button type="submit" class="submit-btn">
+                            <span>Claim Your Spot</span>
+                        </button>
+                    </form>
+                </section>
+            </div>
+            
+            <div class="face-illustration">
+                <div class="face-container">
+                    <div class="data-side">
+                        <div class="data-line"></div>
+                        <div class="data-line"></div>
+                        <div class="data-line"></div>
+                        <div class="data-line"></div>
+                        <div class="data-line"></div>
+                        <div class="data-point" style="top: 20%; left: 75%;"></div>
+                        <div class="data-point" style="top: 35%; left: 65%;"></div>
+                        <div class="data-point" style="top: 50%; left: 68%;"></div>
+                        <div class="data-point" style="top: 65%; left: 70%;"></div>
+                        <div class="data-point" style="top: 80%; left: 80%;"></div>
+                    </div>
+                    <div class="human-side">
+                        <div class="eye left"></div>
+                        <div class="eye right"></div>
+                        <div class="smile"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <section class="comparisons">
+            <div class="comparison-card">
+                <div class="comparison-before">Anonymous Data</div>
+                <div class="comparison-arrow">→</div>
+                <div class="comparison-after">A Personal Plea</div>
+            </div>
+            
+            <div class="comparison-card">
+                <div class="comparison-before">Generic Email</div>
+                <div class="comparison-arrow">→</div>
+                <div class="comparison-after">A Face They Trust</div>
+            </div>
+            
+            <div class="comparison-card">
+                <div class="comparison-before">Lost Sale</div>
+                <div class="comparison-arrow">→</div>
+                <div class="comparison-after">A Customer For Life</div>
+            </div>
+        </section>
+        
+        <div class="ticker-container">
+            <div class="ticker">
+                <span class="ticker-item">Oak & Moss Home</span>
+                <span class="ticker-item">Apex Threads</span>
+                <span class="ticker-item">Luna Beauty Co.</span>
+                <span class="ticker-item">Midnight Makers</span>
+                <span class="ticker-item">Wildcraft Supply</span>
+                <span class="ticker-item">Terra & Stone</span>
+                <span class="ticker-item">Velocity Sports</span>
+                <span class="ticker-item">Oak & Moss Home</span>
+                <span class="ticker-item">Apex Threads</span>
+                <span class="ticker-item">Luna Beauty Co.</span>
+                <span class="ticker-item">Midnight Makers</span>
+                <span class="ticker-item">Wildcraft Supply</span>
+                <span class="ticker-item">Terra & Stone</span>
+                <span class="ticker-item">Velocity Sports</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
