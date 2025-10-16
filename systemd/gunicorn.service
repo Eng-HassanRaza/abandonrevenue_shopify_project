@@ -1,0 +1,24 @@
+[Unit]
+Description=Gunicorn daemon for Abandon Revenue Django project
+After=network.target
+
+[Service]
+Type=notify
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/abandonrevenue_shopify_project
+Environment="PATH=/home/ubuntu/abandonrevenue_shopify_project/venv/bin"
+EnvironmentFile=/home/ubuntu/abandonrevenue_shopify_project/.env
+ExecStart=/home/ubuntu/abandonrevenue_shopify_project/venv/bin/gunicorn \
+          --config /home/ubuntu/abandonrevenue_shopify_project/gunicorn_config.py \
+          abandon_revenue.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+

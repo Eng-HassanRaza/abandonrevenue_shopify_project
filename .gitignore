@@ -140,3 +140,13 @@ media/
 staticfiles/
 static_root/
 
+# Logs
+logs/
+*.log
+
+# Backups
+backups/
+
+# Gunicorn
+gunicorn.pid
+
