@@ -64,9 +64,11 @@ def send_welcome_email(email):
             settings.DEFAULT_FROM_EMAIL,
             [email],
             html_message=html_message,
-            fail_silently=False,
+            fail_silently=True,
         )
     except Exception as e:
-        print(f"Error sending email: {e}")
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Failed to send welcome email to {email}: {e}")
 
 
