@@ -3,108 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Abandon Revenue</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: #5D4E75;
+            margin: 0;
+            padding: 20px 0;
+        }
+        
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #F8F8F8;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #5D4E75;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(90deg, transparent 0px, transparent 8px, rgba(248, 248, 248, 0.05) 8px, rgba(248, 248, 248, 0.05) 10px),
+                repeating-linear-gradient(0deg, transparent 0px, transparent 20px, rgba(248, 248, 248, 0.05) 20px, rgba(248, 248, 248, 0.05) 21px);
+        }
+        
+        .header h1 {
+            color: #F8F8F8;
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header .emoji {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+        
+        .content {
+            padding: 45px 40px;
+            background: #F8F8F8;
+        }
+        
+        .greeting {
+            font-size: 1.3rem;
+            color: #5D4E75;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        
+        .message {
+            color: #5D4E75;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+        
+        .coupon-box {
+            background: #FF4D4D;
+            color: #F8F8F8;
+            padding: 35px 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 35px 0;
+            box-shadow: 0 10px 30px rgba(255, 77, 77, 0.3);
+        }
+        
+        .coupon-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .coupon-code {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin: 15px 0;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px dashed rgba(248, 248, 248, 0.5);
+        }
+        
+        .coupon-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 15px;
+        }
+        
+        .benefits {
+            background: #5D4E75;
+            padding: 35px 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border-left: 5px solid #FF4D4D;
+        }
+        
+        .benefits h2 {
+            color: #E8C8C8;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .benefit {
+            color: #F8F8F8;
+            margin-bottom: 14px;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.6;
+        }
+        
+        .benefit::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #FF4D4D;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .benefit:last-child {
+            margin-bottom: 0;
+        }
+        
+        .highlight-box {
+            background: rgba(93, 78, 117, 0.08);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #E8C8C8;
+            margin: 25px 0;
+        }
+        
+        .footer {
+            background: #5D4E75;
+            color: #E8C8C8;
+            padding: 35px 40px;
+            text-align: center;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+        }
+        
+        strong {
+            color: #5D4E75;
+            font-weight: 600;
+        }
+        
+        .benefits strong {
+            color: #E8C8C8;
+        }
+    </style>
 </head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f4f4f4;">
-    <table role="presentation" style="width: 100%; border-collapse: collapse;">
-        <tr>
-            <td style="padding: 40px 0;">
-                <table role="presentation" style="width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                    <!-- Header -->
-                    <tr>
-                        <td style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 30px; text-align: center; border-radius: 10px 10px 0 0;">
-                            <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">Welcome to Abandon Revenue! 🎉</h1>
-                        </td>
-                    </tr>
-
-                    <!-- Content -->
-                    <tr>
-                        <td style="padding: 40px 30px;">
-                            <p style="margin: 0 0 20px; color: #333; font-size: 16px; line-height: 1.6;">
-                                Hi there,
-                            </p>
-                            
-                            <p style="margin: 0 0 20px; color: #333; font-size: 16px; line-height: 1.6;">
-                                Thank you for joining our waitlist! We're excited to have you on board as an early supporter of <strong>Abandon Revenue</strong>.
-                            </p>
-
-                            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 8px; text-align: center; margin: 30px 0;">
-                                <p style="margin: 0; color: #ffffff; font-size: 18px; font-weight: 600;">
-                                    🎁 You've got UNLIMITED FREE ACCESS when we launch!
-                                </p>
-                            </div>
-
-                            <h2 style="color: #333; font-size: 22px; margin: 30px 0 15px;">What is Abandon Revenue?</h2>
-                            <p style="margin: 0 0 20px; color: #555; font-size: 16px; line-height: 1.6;">
-                                Turn abandoned carts into revenue with personalized video emails. Send custom videos featuring your face or celebrity endorsements with the exact products your customers left behind.
-                            </p>
-
-                            <h2 style="color: #333; font-size: 22px; margin: 30px 0 15px;">What You'll Get:</h2>
-                            <table role="presentation" style="width: 100%; border-collapse: collapse;">
-                                <tr>
-                                    <td style="padding: 10px 0;">
-                                        <span style="color: #667eea; font-size: 18px; margin-right: 10px;">✓</span>
-                                        <span style="color: #555; font-size: 15px;">Unlimited personalized video emails</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px 0;">
-                                        <span style="color: #667eea; font-size: 18px; margin-right: 10px;">✓</span>
-                                        <span style="color: #555; font-size: 15px;">Custom videos with your face or celebrity endorsements</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px 0;">
-                                        <span style="color: #667eea; font-size: 18px; margin-right: 10px;">✓</span>
-                                        <span style="color: #555; font-size: 15px;">Full Shopify integration</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px 0;">
-                                        <span style="color: #667eea; font-size: 18px; margin-right: 10px;">✓</span>
-                                        <span style="color: #555; font-size: 15px;">Advanced analytics dashboard</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px 0;">
-                                        <span style="color: #667eea; font-size: 18px; margin-right: 10px;">✓</span>
-                                        <span style="color: #555; font-size: 15px;">Priority customer support</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 10px 0;">
-                                        <span style="color: #667eea; font-size: 18px; margin-right: 10px;">✓</span>
-                                        <span style="color: #555; font-size: 15px;">Early access to new features</span>
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <p style="margin: 30px 0 20px; color: #333; font-size: 16px; line-height: 1.6;">
-                                We'll notify you as soon as we launch. Get ready to recover those lost sales! 🚀
-                            </p>
-
-                            <p style="margin: 30px 0 0; color: #555; font-size: 16px; line-height: 1.6;">
-                                Best regards,<br>
-                                <strong>The Abandon Revenue Team</strong>
-                            </p>
-                        </td>
-                    </tr>
-
-                    <!-- Footer -->
-                    <tr>
-                        <td style="background-color: #f8f9fa; padding: 30px; text-align: center; border-radius: 0 0 10px 10px;">
-                            <p style="margin: 0; color: #999; font-size: 14px;">
-                                You're receiving this email because you signed up for the Abandon Revenue waitlist.
-                            </p>
-                            <p style="margin: 10px 0 0; color: #999; font-size: 14px;">
-                                {{ email }}
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <span class="emoji">✓</span>
+            <h1>Welcome to CartRescue</h1>
+        </div>
+        
+        <div class="content">
+            <p class="greeting">Hello, Future Game-Changer!</p>
+            
+            <p class="message">
+                Thank you for joining our waitlist! We're thrilled to have you as an early supporter 
+                of <strong>CartRescue</strong>.
+            </p>
+            
+            <div class="highlight-box">
+                <p class="message" style="margin: 0;">
+                    <strong>What is CartRescue?</strong><br>
+                    Turn abandoned carts into revenue with personalized video emails. Send custom videos 
+                    featuring your face or celebrity endorsements with the exact products your customers 
+                    left behind. It's like having a personal salesperson for every abandoned cart!
+                </p>
+            </div>
+            
+            <div class="coupon-box">
+                <div class="coupon-label">Your Exclusive Early Supporter Coupon</div>
+                <div class="coupon-code">EARLYBIRD2024</div>
+                <div class="coupon-value">UNLIMITED FREE ACCESS</div>
+            </div>
+            
+            <p class="message">
+                Save this coupon code! When we launch, use <strong>EARLYBIRD2024</strong> to get 
+                unlimited free access to all features. No credit card required, no time limit.
+            </p>
+            
+            <div class="benefits">
+                <h2>What You'll Get:</h2>
+                <div class="benefit">Unlimited personalized video emails</div>
+                <div class="benefit">AI-powered video creation with your face or celebrity faces</div>
+                <div class="benefit">Seamless Shopify integration</div>
+                <div class="benefit">Real-time analytics and recovery tracking</div>
+                <div class="benefit">Automated abandoned cart detection</div>
+                <div class="benefit">Priority customer support</div>
+                <div class="benefit">Early access to new features</div>
+            </div>
+            
+            <p class="message">
+                We're working hard to make <strong>CartRescue</strong> the best tool for recovering abandoned 
+                carts. You'll be the first to know when we launch!
+            </p>
+            
+            <p class="message">
+                Have questions? Just reply to this email - we'd love to hear from you.
+            </p>
+            
+            <p class="message">
+                Best regards,<br>
+                <strong>The CartRescue Team</strong>
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p><strong>© 2025 CartRescue. All rights reserved.</strong></p>
+            <p>You're receiving this email because you joined our waitlist.</p>
+            <p>Don't just recover carts. Recover connections.</p>
+        </div>
+    </div>
 </body>
 </html>
-

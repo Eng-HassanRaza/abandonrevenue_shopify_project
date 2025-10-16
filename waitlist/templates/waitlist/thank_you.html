@@ -3,186 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You - Abandon Revenue</title>
+    <title>You're In! - CartRescue</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #5D4E75;
+            color: #F8F8F8;
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 40px 20px;
         }
-
-        .container {
-            max-width: 600px;
+        
+        .waveform-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            background: white;
-            border-radius: 20px;
-            padding: 60px 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            height: 100%;
+            opacity: 0.03;
+            z-index: 0;
+            pointer-events: none;
+            background-image: 
+                repeating-linear-gradient(90deg, transparent 0px, transparent 8px, #F8F8F8 8px, #F8F8F8 10px),
+                repeating-linear-gradient(0deg, transparent 0px, transparent 20px, #F8F8F8 20px, #F8F8F8 21px);
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 60px 50px;
+            border-left: 5px solid #FF4D4D;
+            backdrop-filter: blur(10px);
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background: #FF4D4D;
+            opacity: 0.15;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.15; }
+            50% { transform: scale(1.1); opacity: 0.25; }
+        }
+        
+        .checkmark {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #FF4D4D;
+            margin: 0 auto 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: #F8F8F8;
+            box-shadow: 0 10px 30px rgba(255, 77, 77, 0.4);
+            animation: checkPulse 1.5s ease-in-out;
+        }
+        
+        @keyframes checkPulse {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: #F8F8F8;
+            margin-bottom: 25px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+        
+        .message {
+            font-size: 1.15rem;
+            color: #E8C8C8;
+            margin-bottom: 25px;
+            line-height: 1.7;
             text-align: center;
         }
-
-        .success-icon {
-            font-size: 80px;
-            margin-bottom: 30px;
-            animation: bounce 1s ease;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-30px);
-            }
-            60% {
-                transform: translateY(-15px);
-            }
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            color: #333;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
+        
         .highlight {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #FF4D4D;
             font-weight: 700;
         }
-
-        .message {
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 30px;
-            line-height: 1.8;
+        
+        .divider {
+            width: 60px;
+            height: 3px;
+            background: #E8C8C8;
+            margin: 40px auto;
         }
-
-        .info-box {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
-            text-align: left;
-        }
-
-        .info-box h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-
-        .info-box p {
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .info-box ul {
-            list-style: none;
-            margin-top: 20px;
-        }
-
-        .info-box li {
-            margin-bottom: 12px;
-            padding-left: 30px;
-            position: relative;
-            color: #555;
-        }
-
-        .info-box li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .cta {
+        
+        .next-steps {
+            background: rgba(232, 200, 200, 0.08);
+            padding: 35px 30px;
+            border-radius: 12px;
+            border: 2px solid rgba(232, 200, 200, 0.2);
             margin-top: 40px;
         }
-
+        
+        .next-steps h2 {
+            font-size: 1.3rem;
+            color: #E8C8C8;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .step {
+            margin-bottom: 18px;
+            color: #F8F8F8;
+            font-size: 1rem;
+            padding-left: 35px;
+            position: relative;
+            line-height: 1.6;
+        }
+        
+        .step::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #FF4D4D;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+        
+        .step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .coupon-highlight {
+            background: rgba(255, 77, 77, 0.15);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 30px 0;
+            border: 2px dashed #FF4D4D;
+        }
+        
+        .coupon-code {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #FF4D4D;
+            letter-spacing: 3px;
+            margin-top: 10px;
+        }
+        
+        .coupon-label {
+            font-size: 0.85rem;
+            color: #E8C8C8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cta {
+            margin-top: 40px;
+            text-align: center;
+        }
+        
         .cta a {
             display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            padding: 18px 40px;
+            background: rgba(232, 200, 200, 0.15);
+            color: #E8C8C8;
             text-decoration: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.3s;
+            border: 2px solid rgba(232, 200, 200, 0.3);
         }
-
+        
         .cta a:hover {
+            background: rgba(232, 200, 200, 0.25);
+            border-color: #E8C8C8;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
-
+        
         @media (max-width: 768px) {
             .container {
-                padding: 40px 25px;
+                padding: 40px 30px;
             }
-
+            
+            .checkmark {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
+            
             h1 {
                 font-size: 2rem;
             }
-
-            .success-icon {
-                font-size: 60px;
+            
+            .message {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
+    <div class="waveform-bg"></div>
+    
     <div class="container">
-        <div class="success-icon">🎉</div>
-        
-        <h1>You're <span class="highlight">In!</span></h1>
-        
+        <div class="checkmark">✓</div>
+        <h1>You're In!</h1>
         <p class="message">
-            Thank you for joining the Abandon Revenue waitlist! We're thrilled to have you as an early supporter.
+            Thank you for joining the <span class="highlight">CartRescue</span> waitlist! 
+            We've sent you an email with your <span class="highlight">unlimited free access coupon</span>.
         </p>
-
-        <div class="info-box">
-            <h3>📧 Check Your Email</h3>
-            <p>
-                We've sent you a confirmation email with all the details about your unlimited free access.
-            </p>
-
-            <h3 style="margin-top: 25px;">🎁 Your Exclusive Benefits:</h3>
-            <ul>
-                <li>Unlimited video emails - Forever free</li>
-                <li>Personalized video creation with AI</li>
-                <li>Celebrity endorsement options</li>
-                <li>Full Shopify integration</li>
-                <li>Advanced analytics dashboard</li>
-                <li>Priority customer support</li>
-                <li>Early access to new features</li>
-            </ul>
+        
+        <div class="coupon-highlight">
+            <div class="coupon-label">Your Early Supporter Coupon</div>
+            <div class="coupon-code">EARLYBIRD2024</div>
         </div>
-
+        
         <p class="message">
-            We'll notify you as soon as we launch. Get ready to recover those lost sales and turn abandoned carts into revenue! 🚀
+            Check your inbox for all the details about your early supporter benefits.
         </p>
-
+        
+        <div class="divider"></div>
+        
+        <div class="next-steps">
+            <h2>What Happens Next?</h2>
+            <div class="step">We'll notify you immediately when we launch</div>
+            <div class="step">You'll get unlimited free access with your coupon</div>
+            <div class="step">Start recovering abandoned carts with personalized videos</div>
+            <div class="step">Transform anonymous data into human connections</div>
+        </div>
+        
         <div class="cta">
             <a href="/">← Back to Home</a>
         </div>
     </div>
 </body>
 </html>
-
