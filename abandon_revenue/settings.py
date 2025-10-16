@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-change-this-in-production-8x9y2z3a4b5c6d7e8f9g0h1i
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['abandonrevenue.com', 'www.abandonrevenue.com', 'localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
