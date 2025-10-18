@@ -150,3 +150,8 @@ backups/
 # Gunicorn
 gunicorn.pid
 
+ad_concept*
+banner.html
+logo.html
+
+
