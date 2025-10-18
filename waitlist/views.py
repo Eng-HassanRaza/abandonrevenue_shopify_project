@@ -28,7 +28,7 @@ def thank_you(request):
 
 
 def send_welcome_email(email):
-    subject = 'Welcome to Abandon Revenue - Exclusive Early Access'
+    subject = 'Welcome to Abandon Revenue - 50% OFF Your First Month!'
     
     html_message = render_to_string('waitlist/welcome_email.html', {
         'email': email,
@@ -39,7 +39,9 @@ def send_welcome_email(email):
     
     Thank you for joining our waitlist! We're excited to have you on board.
     
-    As an early supporter, you'll get UNLIMITED FREE ACCESS when we launch!
+    As an early supporter, you'll get 50% OFF YOUR FIRST MONTH when we launch!
+    
+    Use coupon code: FIRST50
     
     What's Abandon Revenue?
     Turn abandoned carts into revenue with personalized video emails. Send custom videos featuring your face or celebrity endorsements with the exact products your customers left behind.
