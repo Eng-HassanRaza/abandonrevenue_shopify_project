@@ -11,15 +11,15 @@ def landing_page(request):
         form = WaitlistForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
-            
+
             entry, created = WaitlistEntry.objects.get_or_create(email=email)
-            
+
             send_welcome_email(email)
-            
-            return redirect('thank_you')
+
+            return redirect('waitlist:thank_you')
     else:
         form = WaitlistForm()
-    
+
     return render(request, 'waitlist/landing.html', {'form': form})
 
 
@@ -28,37 +28,60 @@ def thank_you(request):
 
 
 def send_welcome_email(email):
-    subject = 'Welcome to Abandon Revenue - 50% OFF Your First Month!'
-    
+    subject = 'Welcome to TemplateForge! 🎉 (50% OFF Early Access)'
+
     html_message = render_to_string('waitlist/welcome_email.html', {
         'email': email,
     })
-    
+
     plain_message = f"""
-    Welcome to Abandon Revenue!
-    
-    Thank you for joining our waitlist! We're excited to have you on board.
-    
-    As an early supporter, you'll get 50% OFF YOUR FIRST MONTH when we launch!
-    
-    Use coupon code: FIRST50
-    
-    What's Abandon Revenue?
-    Turn abandoned carts into revenue with personalized video emails. Send custom videos featuring your face or celebrity endorsements with the exact products your customers left behind.
-    
-    What you'll get:
-    - Unlimited video emails
-    - Personalized video creation
-    - Full Shopify integration
-    - Analytics dashboard
-    - Priority support
-    
-    We'll notify you as soon as we launch. Get ready to recover those lost sales!
-    
-    Best regards,
-    The Abandon Revenue Team
+    Welcome to TemplateForge! 👋
+
+    Hey there, Email Innovator!
+
+    Welcome to the TemplateForge family! We're absolutely thrilled to have you join our
+    community of forward-thinking Shopify store owners.
+
+    WHAT IS TEMPLATEFORGE?
+    TemplateForge is your AI-powered email assistant that generates high-converting,
+    on-brand email templates for every touchpoint in your customer journey. From welcome
+    sequences to post-purchase follow-ups, we craft emails that sound authentically you.
+
+    YOUR EXCLUSIVE EARLY ACCESS CODE
+    ═══════════════════════════════
+    Code: FIRST50
+    Discount: 50% OFF Your First Month
+    Valid: 48 hours after launch
+    ═══════════════════════════════
+
+    Save this code! When we launch, use FIRST50 at checkout to get 50% off your first month.
+
+    WHAT YOU'LL GET:
+    ✓ AI-generated emails in your unique brand voice
+    ✓ Welcome sequences that convert browsers into buyers
+    ✓ Cart recovery emails with personality, not pushy sales speak
+    ✓ Post-purchase follow-ups that build lasting relationships
+    ✓ Seasonal campaigns written on-brand, every time
+    ✓ Seamless Shopify integration
+    ✓ Priority customer support
+    ✓ Early access to new features
+
+    We're putting the finishing touches on TemplateForge to make it the most intuitive,
+    powerful email tool for Shopify stores. You'll be among the very first to know when we launch!
+
+    Questions? Ideas? Just want to chat?
+    Hit reply to this email - we read every message and we'd love to hear from you.
+
+    Excited to have you on board!
+
+    The TemplateForge Team
+    Building the future of email marketing, one template at a time
+
+    ---
+    AI-Crafted. Always On-Brand. Uniquely You.
+    © 2025 TemplateForge. All rights reserved.
     """
-    
+
     try:
         send_mail(
             subject,
