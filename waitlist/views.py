@@ -17,6 +17,9 @@ def landing_page(request):
             send_welcome_email(email)
 
             return redirect('waitlist:thank_you')
+        else:
+            # If form is invalid, show errors
+            print(f"Form errors: {form.errors}")
     else:
         form = WaitlistForm()
 
