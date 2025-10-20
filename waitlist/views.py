@@ -31,22 +31,22 @@ def thank_you(request):
 
 
 def send_welcome_email(email):
-    subject = 'Welcome to TemplateForge! 🎉 (50% OFF Early Access)'
+    subject = 'Welcome to AbandonRevenue! 🎉 (50% OFF Early Access)'
 
     html_message = render_to_string('waitlist/welcome_email.html', {
         'email': email,
     })
 
     plain_message = f"""
-    Welcome to TemplateForge! 👋
+    Welcome to AbandonRevenue! 👋
 
     Hey there, Email Innovator!
 
-    Welcome to the TemplateForge family! We're absolutely thrilled to have you join our
+    Welcome to the AbandonRevenue family! We're absolutely thrilled to have you join our
     community of forward-thinking Shopify store owners.
 
-    WHAT IS TEMPLATEFORGE?
-    TemplateForge is your AI-powered email assistant that generates high-converting,
+    WHAT IS ABANDONREVENUE?
+    AbandonRevenue is your AI-powered email assistant that generates high-converting,
     on-brand email templates for every touchpoint in your customer journey. From welcome
     sequences to post-purchase follow-ups, we craft emails that sound authentically you.
 
@@ -69,7 +69,7 @@ def send_welcome_email(email):
     ✓ Priority customer support
     ✓ Early access to new features
 
-    We're putting the finishing touches on TemplateForge to make it the most intuitive,
+    We're putting the finishing touches on AbandonRevenue to make it the most intuitive,
     powerful email tool for Shopify stores. You'll be among the very first to know when we launch!
 
     Questions? Ideas? Just want to chat?
@@ -77,12 +77,12 @@ def send_welcome_email(email):
 
     Excited to have you on board!
 
-    The TemplateForge Team
+    The AbandonRevenue Team
     Building the future of email marketing, one template at a time
 
     ---
     AI-Crafted. Always On-Brand. Uniquely You.
-    © 2025 TemplateForge. All rights reserved.
+    © 2025 AbandonRevenue. All rights reserved.
     """
 
     try:
